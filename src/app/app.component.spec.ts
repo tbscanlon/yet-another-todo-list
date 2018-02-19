@@ -1,7 +1,7 @@
 import { TestBed, async, ComponentFixture } from "@angular/core/testing";
 import { AppComponent } from "./app.component";
 import { TodoListComponent } from "./todo-list/todo-list.component";
-import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from "@angular/core";
 
 describe("AppComponent", () => {
   let fixture: ComponentFixture<AppComponent>;

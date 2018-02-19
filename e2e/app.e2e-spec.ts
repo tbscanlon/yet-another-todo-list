@@ -5,10 +5,22 @@ describe("todo-ngrx App", () => {
 
   beforeEach(() => {
     page = new AppPage();
+    page.navigateTo();
   });
 
-  it("should display welcome message", () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual("Welcome to app!");
+  describe("Initialisation", () => {
+    it("should display welcome message", () => {
+      expect(page.getParagraphText()).toEqual("Yet Another Todo List");
+    });
+
+    it("Does not have any todos on first visit", () => {
+      expect(page.getTodoList()).toBeFalsy();
+    });
+  });
+
+  describe("Using the Todo List", () => {
+    it("Successfully adds a todo to the list", () => {
+      expect(page.addAndGetTodo()).toEqual(page.TODO_TEXT);
+    });
   });
 });

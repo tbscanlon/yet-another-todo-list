@@ -9,6 +9,8 @@ import { TodoListComponent } from "./todo-list.component";
 import * as todoState from "../store/todo.state";
 import * as fromTodo from "../store/todo.reducer";
 import * as todoActions from "../store/todo.actions";
+import { TodoComponent } from "./todo/todo.component";
+import { DebugElement, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 
 describe("TodoListComponent", () => {
   const TODO: Todo = { id: 1, content: "Write Unit Tests", isComplete: false };
@@ -18,6 +20,7 @@ describe("TodoListComponent", () => {
 
   let component: TodoListComponent;
   let fixture: ComponentFixture<TodoListComponent>;
+  let element: Element;
   let mockStore: jasmine.SpyObj<any>;
 
   beforeEach(async(() => {
@@ -31,12 +34,19 @@ describe("TodoListComponent", () => {
       declarations: [TodoListComponent],
       providers: [
         { provide: Store, useValue: mockStore }
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(TodoListComponent);
+      fixture = TestBed.overrideComponent(TodoComponent, {
+        set: {
+          selector: "app-todo",
+        }})
+        .createComponent(TodoListComponent);
+
     component = fixture.componentInstance;
+    element   = fixture.debugElement.nativeElement;
 
     fixture.detectChanges();
   }));
