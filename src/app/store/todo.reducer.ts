@@ -1,42 +1,38 @@
 import { createSelector } from "@ngrx/store";
-import { State, initialState } from "./todo.state";
+import { State, initialState, TodoState, todoAdapter } from "./todo.state";
 
 import * as todoActions from "./todo.actions";
 
-export function reducer(state: State = initialState, action: todoActions.Actions): State {
+export function reducer(state: TodoState = initialState, action: todoActions.Actions): TodoState {
 
     switch (action.type) {
         case todoActions.ADD_TODO:
-            return {
-                ...state,
-                todoList: [...state.todoList, action.payload]
-            };
+            return todoAdapter.addOne(action.payload, state);
 
         case todoActions.COMPLETE_TODO:
-            return {
-                ...state,
-                todoList: state.todoList.map(todo => {
-                    if (todo.id === action.payload) {
-                        return { ...todo, isComplete: true };
-                    }
-                    return todo;
-                })
-            };
+            return todoAdapter.updateOne({
+                id: action.id,
+                changes: action.changes
+            }, state);
 
         case todoActions.REMOVE_TODO:
-        return {
-            ...state,
-            todoList: state.todoList.filter(todo => todo.id !== action.payload)
-        };
+            return todoAdapter.removeOne(action.payload, state);
 
         case todoActions.RESET_TODOS:
             return initialState;
 
         default:
-            console.log(state, action);
             return state;
     }
 }
 
-export const getState = state => state.reducer;
-export const getTodos = createSelector(getState, state => state.todoList);
+// Not needed anymore?
+// export const getState = state => state.reducer;
+// export const getTodos = createSelector(getState, state => state.todoList);
+
+export const {
+    selectIds,
+    selectEntities,
+    selectAll,
+    selectTotal
+} = todoAdapter.getSelectors();
