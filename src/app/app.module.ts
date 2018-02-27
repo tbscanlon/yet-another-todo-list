@@ -6,7 +6,7 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { AppComponent } from "./app.component";
 import { reducer } from "./store/todo.reducer";
 import { TodoListComponent } from "./todo-list/todo-list.component";
-import { TodoComponent } from './todo-list/todo/todo.component';
+import { TodoComponent } from "./todo-list/todo/todo.component";
 
 @NgModule({
   declarations: [

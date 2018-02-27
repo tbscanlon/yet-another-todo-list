@@ -16,9 +16,26 @@ import * as todoActions from "../store/todo.actions";
 export class TodoListComponent {
   public todos$: Observable<Todo[]>;
 
-  constructor(private store: Store<todoState.State>) {
-    this.todos$ = this.store.select(fromTodo.getTodos);
+  constructor(private store: Store<todoState.TodoState>) {
+    // this.todos$ = this.store.select(fromTodo.getTodos);
     // TODO (hehe): ngFor todos in store, create add todo component and wire that up
+    this.store.dispatch(new todoActions.Add({
+      id: 100,
+      content: "hello",
+      isComplete: false
+    }));
+    this.store.dispatch(new todoActions.Add({
+      id: 200,
+      content: "hello",
+      isComplete: false
+    }));
+    this.store.dispatch(new todoActions.Add({
+      id: 300,
+      content: "hello",
+      isComplete: false
+    }));
+    this.todos$ = this.store.select(fromTodo.selectAllTodos);
+    this.todos$.subscribe(res => console.log(res));
   }
 
 }

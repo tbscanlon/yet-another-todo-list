@@ -3,9 +3,9 @@ import { createEntityAdapter } from "@ngrx/entity";
 import { EntityState } from "@ngrx/entity";
 
 // I think this is unnecessary now
-export interface State {
-    todoList: Todo[];
-}
+// export interface State {
+//     todoList: Todo[];
+// }
 
 // Create entity adapter
 export const todoAdapter = createEntityAdapter<Todo>();

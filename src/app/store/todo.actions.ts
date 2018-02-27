@@ -4,6 +4,7 @@ import { Todo } from "../models/todo";
 
 export const ADD_TODO      = "[Todo] Add";
 export const COMPLETE_TODO = "[Todo] Complete";
+export const EDIT_TODO     = "[Todo] Edit";
 export const REMOVE_TODO   = "[Todo] Remove";
 export const RESET_TODOS   = "[Todo] Reset";
 export const GET_TODOS     = "[Todo] Get All";

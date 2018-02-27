@@ -1,10 +1,10 @@
-import { createSelector } from "@ngrx/store";
-import { State, initialState, TodoState, todoAdapter } from "./todo.state";
+import { createSelector, createFeatureSelector } from "@ngrx/store";
+import { initialState, TodoState, todoAdapter } from "./todo.state";
 
 import * as todoActions from "./todo.actions";
+import * as todoState from "./todo.state";
 
 export function reducer(state: TodoState = initialState, action: todoActions.Actions): TodoState {
-
     switch (action.type) {
         case todoActions.ADD_TODO:
             return todoAdapter.addOne(action.payload, state);
@@ -26,13 +26,12 @@ export function reducer(state: TodoState = initialState, action: todoActions.Act
     }
 }
 
-// Not needed anymore?
-// export const getState = state => state.reducer;
-// export const getTodos = createSelector(getState, state => state.todoList);
+export const getState = state => state.reducer;
+export const getTodoState = createSelector(getState, state => state);
 
 export const {
     selectIds,
     selectEntities,
-    selectAll,
+    selectAll: selectAllTodos,
     selectTotal
-} = todoAdapter.getSelectors();
+} = todoAdapter.getSelectors(getTodoState);

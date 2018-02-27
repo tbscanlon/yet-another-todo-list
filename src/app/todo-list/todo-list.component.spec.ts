@@ -57,7 +57,7 @@ describe("TodoListComponent", () => {
     });
 
     it("Fetchs the todo list from the store", async(() => {
-      expect(mockStore.select).toHaveBeenCalledWith(fromTodo.getTodos);
+      expect(mockStore.select).toHaveBeenCalledWith(fromTodo.selectAllTodos);
     }));
 
     it("Streams the todos from the store to todos$", async(() => {
