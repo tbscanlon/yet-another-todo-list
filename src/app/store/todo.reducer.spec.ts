@@ -66,25 +66,6 @@ describe("Reducer: Todo", () => {
         });
     });
 
-    describe("GET_TODOS", () => {
-        beforeEach(() => {
-            testState = reducer(initialState, new todoActions.Add(TODO));
-            testState = reducer(testState, new todoActions.Add(TODO_2));
-            testState = reducer(testState, new todoActions.Add(TODO_3));
-
-            result = reducer(testState, new todoActions.GetAll(
-                [TODO, TODO_2, TODO_3]
-            ));
-        });
-
-        it("Retrieves all todos from the store", () => {
-
-            expect(result.entities[1]).toEqual(TODO);
-            expect(result.entities[2]).toEqual(TODO_2);
-            expect(result.entities[3]).toEqual(TODO_3);
-        });
-    });
-
     describe("RESET_TODOS", () => {
         beforeEach(() => {
             testState = reducer(initialState, new todoActions.Add(TODO));

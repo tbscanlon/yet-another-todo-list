@@ -19,6 +19,7 @@ class TestHostComponent {
 
 describe("TodoComponent", () => {
   const TODO: Todo = { id: 1, content: "Write Unit Tests", isComplete: false };
+  const COMPLETED_TODO: Todo = { id: 1, content: "Write Unit Tests", isComplete: true };
 
   let host: TestHostComponent;
   let fixture: ComponentFixture<TestHostComponent>;
@@ -57,13 +58,36 @@ describe("TodoComponent", () => {
     it("Has a 'Complete Todo' button", () => {
       expect(el.querySelector("button.complete-todo").textContent).toContain("Complete");
     });
+
+    it("Has a 'Remove' button", () => {
+      expect(el.querySelector("button.remove-todo").textContent).toContain("Remove");
+    });
   });
 
   describe("#completeTodo", () => {
+    beforeEach(() => {
+      component.completeTodo(TODO.id);
+      component.todo = COMPLETED_TODO;
+
+      fixture.detectChanges();
+    });
+
     it("Dispatches a COMPLETE_TODO action when called", () => {
-      component.completeTodo(TODO.id, { isComplete: true });
       expect(mockStore.dispatch).toHaveBeenCalledWith(
         new todoActions.Complete(TODO.id, { isComplete: true })
+      );
+    });
+
+    it("Marks the todo as done within the template", () => {
+      expect(el.querySelector("h3").textContent).toContain("done");
+    });
+  });
+
+  describe("#deleteTodo", () => {
+    it("Dispatches a REMOVE_TODO action when called", () => {
+      component.deleteTodo(TODO.id);
+      expect(mockStore.dispatch).toHaveBeenCalledWith(
+        new todoActions.Remove(TODO.id)
       );
     });
   });

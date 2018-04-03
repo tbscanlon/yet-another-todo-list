@@ -1,10 +1,11 @@
 import { createSelector, createFeatureSelector } from "@ngrx/store";
-import { initialState, TodoState, todoAdapter } from "./todo.state";
 
-import * as todoActions from "./todo.actions";
+import { initialState, TodoState, todoAdapter } from "./todo.state";
+import { todoActions, Actions } from "./todo.actions";
+
 import * as todoState from "./todo.state";
 
-export function reducer(state: TodoState = initialState, action: todoActions.Actions): TodoState {
+export function reducer(state: TodoState = initialState, action: Actions): TodoState {
     switch (action.type) {
         case todoActions.ADD_TODO:
             return todoAdapter.addOne(action.payload, state);

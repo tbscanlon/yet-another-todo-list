@@ -6,4 +6,5 @@
   done
 </h3>
 
-<button class="complete-todo">Complete</button>
+<button class="complete-todo" (click)="completeTodo(todo.id)">Complete</button>
+<button class="remove-todo" (click)="deleteTodo(todo.id)">Remove</button>

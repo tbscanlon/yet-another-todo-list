@@ -16,9 +16,15 @@ export class TodoComponent {
 
   constructor(private store: Store<todoState.TodoState>) { }
 
-  public completeTodo(todoId: number, changes: Partial<Todo>): void {
+  public completeTodo(id: number): void {
     this.store.dispatch(
-      new todoActions.Complete(todoId, { isComplete: true })
+      new todoActions.Complete(id, { isComplete: true })
+    );
+  }
+
+  public deleteTodo(id: number): void {
+    this.store.dispatch(
+      new todoActions.Remove(id)
     );
   }
 }
