@@ -9,6 +9,7 @@ import { reducer } from "./store/todo.reducer";
 import { TodoListComponent } from "./todo-list/todo-list.component";
 import { TodoComponent } from "./todo-list/todo/todo.component";
 import { NewTodoComponent } from "./todo-list/new-todo/new-todo.component";
+import { LocalstorageService } from "./services/localstorage.service";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { NewTodoComponent } from "./todo-list/new-todo/new-todo.component";
     StoreModule.forRoot({reducer}),
     StoreDevtoolsModule.instrument()
   ],
-  providers: [],
+  providers: [LocalstorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

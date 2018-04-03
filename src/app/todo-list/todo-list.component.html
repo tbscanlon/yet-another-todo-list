@@ -3,3 +3,6 @@
 <div *ngFor="let todo of todos$ | async">
     <app-todo [todo]="todo"></app-todo>
 </div>
+
+<button (click)="saveTodos()">save</button>
+<button (click)="loadTodos()">load</button>

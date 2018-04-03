@@ -19,13 +19,13 @@ export class Add implements Action {
 export class Complete implements Action {
     readonly type = todoActions.COMPLETE_TODO;
 
-    constructor(public id: number, public changes: Partial<Todo>) { }
+    constructor(public id: string, public changes: Partial<Todo>) { }
 }
 
 export class Remove implements Action {
     readonly type = todoActions.REMOVE_TODO;
 
-    constructor(public payload: number) { }
+    constructor(public payload: string) { }
 }
 
 export class Reset implements Action {

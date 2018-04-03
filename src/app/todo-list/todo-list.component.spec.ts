@@ -11,20 +11,23 @@ import * as fromTodo from "../store/todo.reducer";
 import * as todoActions from "../store/todo.actions";
 import { TodoComponent } from "./todo/todo.component";
 import { DebugElement, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { LocalstorageService } from "../services/localstorage.service";
 
 describe("TodoListComponent", () => {
-  const TODO: Todo = { id: 1, content: "Write Unit Tests", isComplete: false };
-  const TODO_2: Todo = { id: 2, content: "Buy Milk", isComplete: false };
-  const TODO_3: Todo = { id: 3, content: "Hide the bodies", isComplete: false };
+  const TODO: Todo = { id: "1", content: "Write Unit Tests", isComplete: false };
+  const TODO_2: Todo = { id: "2", content: "Buy Milk", isComplete: false };
+  const TODO_3: Todo = { id: "3", content: "Hide the bodies", isComplete: false };
   const TODO_LIST: Todo[] = [TODO, TODO_2, TODO_3];
 
   let component: TodoListComponent;
   let fixture: ComponentFixture<TodoListComponent>;
   let element: Element;
   let mockStore: jasmine.SpyObj<any>;
+  let mockLocalStorage: jasmine.SpyObj<LocalstorageService>;
 
   beforeEach(async(() => {
-    mockStore = jasmine.createSpyObj("store", ["select", "dispatch"]);
+    mockStore        = jasmine.createSpyObj("store", ["select", "dispatch"]);
+    mockLocalStorage = jasmine.createSpyObj("storage", ["load", "save"]);
 
     mockStore.select.and.returnValue(
       Observable.of(TODO_LIST)
@@ -33,7 +36,8 @@ describe("TodoListComponent", () => {
     TestBed.configureTestingModule({
       declarations: [TodoListComponent],
       providers: [
-        { provide: Store, useValue: mockStore }
+        { provide: Store, useValue: mockStore },
+        { provide: LocalstorageService, useValue: mockLocalStorage }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })

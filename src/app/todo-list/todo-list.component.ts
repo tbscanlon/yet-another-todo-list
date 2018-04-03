@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
 
+import { LocalstorageService } from "../services/localstorage.service";
 import { Todo } from "../models/todo";
 
 import * as todoState from "../store/todo.state";
@@ -17,8 +18,26 @@ export class TodoListComponent {
   public todos$: Observable<Todo[]>;
 
   constructor(
-    private store: Store<todoState.TodoState>) {
+    private store: Store<todoState.TodoState>,
+    private storage: LocalstorageService
+  ) {
     this.todos$ = store.select(fromTodo.selectAllTodos);
+  }
+
+  // TODO: Move into effect
+  public saveTodos(): void {
+    this.todos$.forEach((todos: Todo[]) => {
+      todos.forEach(todo => this.storage.save(todo));
+    });
+  }
+
+  // TODO: Move into effect
+  public loadTodos() {
+    this.storage.getAllTodos().forEach((todo: Todo) => {
+      this.store.dispatch(
+        new todoActions.Add(todo)
+      );
+    });
   }
 
 }

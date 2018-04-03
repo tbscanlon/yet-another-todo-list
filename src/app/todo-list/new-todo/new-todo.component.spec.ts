@@ -21,13 +21,13 @@ describe("NewTodoComponent", () => {
   };
 
   const NEW_TODO: Todo = {
-    id: 1,
+    id: "1",
     content: FORM_SUBMISSION.value.content,
     isComplete: false
   };
 
   const ANOTHER_NEW_TODO: Todo = {
-    id: 2,
+    id: "2",
     content: FORM_SUBMISSION.value.content,
     isComplete: false
   };
@@ -58,7 +58,7 @@ describe("NewTodoComponent", () => {
 
   describe("#onSubmit", () => {
     beforeEach(() => {
-      component.onSubmit(FORM_SUBMISSION);
+      component.onSubmit(FORM_SUBMISSION, NEW_TODO.id);
     });
 
     it("Dispatches an ADD_TODO action to the store", () => {
@@ -68,7 +68,7 @@ describe("NewTodoComponent", () => {
     });
 
     it("Creates multiple todos with unique IDs for each", () => {
-      component.onSubmit(FORM_SUBMISSION);
+      component.onSubmit(FORM_SUBMISSION, ANOTHER_NEW_TODO.id);
 
       expect(mockStore.dispatch).toHaveBeenCalledWith(
         new todoActions.Add(ANOTHER_NEW_TODO)

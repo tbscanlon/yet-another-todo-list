@@ -21,26 +21,26 @@ export class NewTodoComponent implements OnInit {
   ngOnInit() {
   }
 
-  public onSubmit(form: NgForm): void {
-    this.incrementId();
-
+  public onSubmit(form: NgForm, id?: string): void {
     this.store.dispatch(
       new todoActions.Add(
-        this.createTodo(form.value.content)
+        this.createTodo(form.value.content, id)
       )
     );
   }
 
-  private createTodo(content: string): Todo {
+  private createTodo(content: string, id: string): Todo {
     return {
-      id: this.newTodoId,
+      id: (id || this.generateId()),
       content: content,
       isComplete: false
     };
   }
 
-  private incrementId(): void {
-    this.newTodoId += 1;
+  private generateId(): string {
+    return new Date()
+      .valueOf()
+      .toString();
   }
 
 }

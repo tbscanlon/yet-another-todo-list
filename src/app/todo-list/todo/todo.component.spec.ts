@@ -18,8 +18,8 @@ class TestHostComponent {
 }
 
 describe("TodoComponent", () => {
-  const TODO: Todo = { id: 1, content: "Write Unit Tests", isComplete: false };
-  const COMPLETED_TODO: Todo = { id: 1, content: "Write Unit Tests", isComplete: true };
+  const TODO: Todo = { id: "1", content: "Write Unit Tests", isComplete: false };
+  const COMPLETED_TODO: Todo = { id: "1", content: "Write Unit Tests", isComplete: true };
 
   let host: TestHostComponent;
   let fixture: ComponentFixture<TestHostComponent>;
@@ -71,7 +71,7 @@ describe("TodoComponent", () => {
     });
 
     it("Marks the todo as done within the template", () => {
-      expect(el.querySelector("h3").textContent).toContain("done");
+      expect(el.querySelector(".complete")).toBeTruthy();
     });
   });
 

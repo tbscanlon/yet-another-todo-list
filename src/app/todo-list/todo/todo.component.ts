@@ -16,13 +16,13 @@ export class TodoComponent {
 
   constructor(private store: Store<todoState.TodoState>) { }
 
-  public completeTodo(id: number): void {
+  public completeTodo(id: string): void {
     this.store.dispatch(
       new todoActions.Complete(id, { isComplete: true })
     );
   }
 
-  public deleteTodo(id: number): void {
+  public deleteTodo(id: string): void {
     this.store.dispatch(
       new todoActions.Remove(id)
     );
