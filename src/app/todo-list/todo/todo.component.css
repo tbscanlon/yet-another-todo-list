@@ -1,0 +1,21 @@
+.todo-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.complete {
+    opacity: 0.5;
+}
+
+.complete:after {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 3px;
+    background: #c00;
+    content: "";
+    width: 100%;
+    display: block;
+}

@@ -1,10 +1,12 @@
-<h2>
-  {{ todo.content }}
-</h2>
+<div class="todo-item" [class.complete]="todo.isComplete">
+  <div class="todo-content">
+    <h2>
+      {{ todo.content }}
+    </h2>
+  </div>
 
-<h3 *ngIf="todo.isComplete">
-  done
-</h3>
-
-<button class="complete-todo" (click)="completeTodo(todo.id)">Complete</button>
-<button class="remove-todo" (click)="deleteTodo(todo.id)">Remove</button>
+  <div class="todo-buttons">
+    <button class="complete-todo" (click)="completeTodo(todo.id)">Complete</button>
+    <button class="remove-todo" (click)="deleteTodo(todo.id)">Remove</button>
+  </div>
+</div>

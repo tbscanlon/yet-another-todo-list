@@ -54,14 +54,6 @@ describe("TodoComponent", () => {
     it("Displays the todo's content", () => {
     expect(el.querySelector("h2").textContent).toContain(TODO.content);
     });
-
-    it("Has a 'Complete Todo' button", () => {
-      expect(el.querySelector("button.complete-todo").textContent).toContain("Complete");
-    });
-
-    it("Has a 'Remove' button", () => {
-      expect(el.querySelector("button.remove-todo").textContent).toContain("Remove");
-    });
   });
 
   describe("#completeTodo", () => {
