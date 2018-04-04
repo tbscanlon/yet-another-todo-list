@@ -9,6 +9,10 @@ import * as todoState from "../store/todo.state";
 import * as fromTodo from "../store/todo.reducer";
 import * as todoActions from "../store/todo.actions";
 
+/**
+ * Represents a list which contains todo items
+ * @class TodoListComponent
+ */
 @Component({
   selector: "app-todo-list",
   templateUrl: "./todo-list.component.html",
@@ -25,6 +29,10 @@ export class TodoListComponent {
     this.todos$ = store.select(fromTodo.selectAllTodos);
   }
 
+  /**
+   * Tells the store to delete all todos. Called when the
+   * reset button in the template is clicked.
+   */
   public handleResetTodos(): void {
     this.store.dispatch(new todoActions.Reset());
   }
