@@ -2,28 +2,13 @@ import { TestBed, inject } from "@angular/core/testing";
 
 import { LocalstorageService } from "./localstorage.service";
 import { Todo } from "../models/todo";
+import { TODO, TODO_2, TODO_3, TODO_LIST } from "../../spec/mocks";
 
 describe("LocalstorageService", () => {
   let service: LocalstorageService;
   let mockStorage: jasmine.SpyObj<Storage>;
 
   const storage: Storage = localStorage;
-  const TODO: Todo = {
-    id: "1",
-    content: "Write unit tests",
-    isComplete: false
-  };
-  const TODO_2: Todo = {
-    id: "2",
-    content: "Write more unit tests",
-    isComplete: false
-  };
-  const TODO_3: Todo = {
-    id: "3",
-    content: "Write even more unit tests",
-    isComplete: false
-  };
-  const TODO_LIST: Todo[] = [TODO, TODO_2, TODO_3];
 
   beforeEach(() => {
     mockStorage = jasmine.createSpyObj("storage", ["clear", "setItem"]);

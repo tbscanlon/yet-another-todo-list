@@ -1,14 +1,11 @@
 import { reducer } from "./todo.reducer";
 import { Todo } from "../models/todo";
+import { TODO, TODO_2, TODO_3 } from "../../spec/mocks";
 
 import * as todoActions from "./todo.actions";
 import * as todoState from "./todo.state";
 
 describe("Reducer: Todo", () => {
-    const TODO: Todo = { id: "1", content: "Write Unit Tests", isComplete: false };
-    const TODO_2: Todo = { id: "2", content: "Buy Milk", isComplete: false };
-    const TODO_3: Todo = { id: "3", content: "Hide the bodies", isComplete: false };
-
     let initialState: todoState.TodoState;
     let testState: todoState.TodoState;
     let result: todoState.TodoState;

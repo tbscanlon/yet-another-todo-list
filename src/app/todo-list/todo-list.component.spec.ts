@@ -1,24 +1,20 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
+import { DebugElement, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import "rxjs/add/observable/of";
 
 import { Todo } from "../models/todo";
 import { TodoListComponent } from "./todo-list.component";
+import { TodoComponent } from "./todo/todo.component";
+import { LocalstorageService } from "../services/localstorage.service";
+import { TODO_LIST } from "../../spec/mocks";
 
 import * as todoState from "../store/todo.state";
 import * as fromTodo from "../store/todo.reducer";
 import * as todoActions from "../store/todo.actions";
-import { TodoComponent } from "./todo/todo.component";
-import { DebugElement, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { LocalstorageService } from "../services/localstorage.service";
 
 describe("TodoListComponent", () => {
-  const TODO: Todo = { id: "1", content: "Write Unit Tests", isComplete: false };
-  const TODO_2: Todo = { id: "2", content: "Buy Milk", isComplete: false };
-  const TODO_3: Todo = { id: "3", content: "Hide the bodies", isComplete: false };
-  const TODO_LIST: Todo[] = [TODO, TODO_2, TODO_3];
-
   let component: TodoListComponent;
   let fixture: ComponentFixture<TodoListComponent>;
   let element: Element;

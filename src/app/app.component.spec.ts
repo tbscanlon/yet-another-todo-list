@@ -30,10 +30,6 @@ describe("AppComponent", () => {
     expect(app).toBeTruthy();
   }));
 
-  it("Has a title in a h1 tag", async(() => {
-    expect(app.querySelector("h1").textContent).toContain("Yet Another Todo List");
-  }));
-
   it("Contains the Todo list", async(() => {
     expect(app.querySelector("app-todo-list")).toBeTruthy();
   }));

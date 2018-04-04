@@ -5,6 +5,7 @@ import { Store } from "@ngrx/store";
 
 import { TodoComponent } from "./todo.component";
 import { Todo } from "../../models/todo";
+import { TODO, COMPLETED_TODO } from "../../../spec/mocks";
 
 import * as todoState from "../../store/todo.state";
 import * as todoActions from "../../store/todo.actions";
@@ -18,9 +19,6 @@ class TestHostComponent {
 }
 
 describe("TodoComponent", () => {
-  const TODO: Todo = { id: "1", content: "Write Unit Tests", isComplete: false };
-  const COMPLETED_TODO: Todo = { id: "1", content: "Write Unit Tests", isComplete: true };
-
   let host: TestHostComponent;
   let fixture: ComponentFixture<TestHostComponent>;
   let component: TodoComponent;

@@ -8,17 +8,12 @@ import { Action, Store } from "@ngrx/store";
 import { TodoEffects } from "./todo.effects";
 import { LocalstorageService } from "../services/localstorage.service";
 import { Todo } from "../models/todo";
+import { TODO, TODO_2, TODO_3, TODO_LIST } from "../../spec/mocks";
 
 import * as todoActions from "./todo.actions";
 import * as todoState from "./todo.state";
 
 describe("Effects: Todo", () => {
-    const TODO: Todo   = { id: "1", content: "Write Unit Tests", isComplete: false };
-    const TODO_2: Todo = { id: "2", content: "Buy Milk", isComplete: false };
-    const TODO_3: Todo = { id: "3", content: "Hide the bodies", isComplete: false };
-
-    const TODO_LIST: Todo[] = [TODO, TODO_2, TODO_3];
-
     let effects: TodoEffects;
     let action$: ReplaySubject<Action>;
     let service: jasmine.SpyObj<LocalstorageService>;
