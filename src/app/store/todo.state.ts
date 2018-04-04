@@ -6,7 +6,11 @@ import { EntityState } from "@ngrx/entity";
 export const todoAdapter = createEntityAdapter<Todo>();
 
 // create an interface that works with entity
-export interface TodoState extends EntityState<Todo> { }
+export interface TodoState extends EntityState<Todo> {
+    isLoading: boolean;
+}
 
 // Set up initialstate to be used with ngrx/entity
-export const initialState = todoAdapter.getInitialState();
+export const initialState = todoAdapter.getInitialState({
+    isLoading: false
+});

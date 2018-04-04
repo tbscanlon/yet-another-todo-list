@@ -5,13 +5,12 @@ import { Observable } from "rxjs/Observable";
 import { map, catchError, switchMap, take } from "rxjs/operators";
 import { of } from "rxjs/observable/of";
 
+import { LocalstorageService } from "../services/localstorage.service";
+import { Todo } from "../models/todo";
+
 import * as todoActions from "./todo.actions";
 import * as todoState from "./todo.state";
 import * as fromTodo from "../store/todo.reducer";
-
-import { LocalstorageService } from "../services/localstorage.service";
-import { empty } from "rxjs/Observer";
-import { Todo } from "../models/todo";
 
 @Injectable()
 export class TodoEffects {
@@ -41,7 +40,10 @@ export class TodoEffects {
         todoActions.todoActions.REMOVE_TODO
     )
     .pipe(
-        switchMap((action, index) => {
+        switchMap((action: todoActions.Add |
+            todoActions.Complete |
+            todoActions.Remove
+        ) => {
             return of(new todoActions.Save());
         }),
         catchError(err => of(err))
@@ -64,7 +66,7 @@ export class TodoEffects {
 
     @Effect()
     reset$: Observable<Action> = this.action$.pipe(
-        ofType(todoActions.todoActions.RESET_TODOS),
+        ofType(todoActions.todoActions.DELETE_TODOS),
         map(action => {
             this.storage.clear();
             return (new todoActions.ResetSuccess);

@@ -17,25 +17,33 @@ export function reducer(state: TodoState = initialState, action: Actions): TodoS
             }, state);
 
         case todoActions.REMOVE_TODO:
-            return todoAdapter.removeOne(action.payload, state);
+            return todoAdapter.removeOne(action.payload, {
+                ...state, isLoading: false
+            });
 
-        case todoActions.RESET_TODOS:
-            return state;
+        case todoActions.DELETE_TODOS:
+            return { ...state, isLoading: true };
 
-        case todoActions.RESET_TODOS_SUCCESS:
-            return initialState;
+        case todoActions.DELETE_TODOS_SUCCESS:
+            return todoAdapter.removeAll({
+                ...state,
+                isLoading: false
+            });
 
         case todoActions.LOAD_TODOS:
-            return state;
+            return { ...state, isLoading: true };
 
         case todoActions.LOAD_TODOS_SUCCESS:
-            return todoAdapter.addAll(action.payload, state);
+            return todoAdapter.addAll(action.payload, {
+                ...state,
+                isLoading: false
+            });
 
         case todoActions.SAVE_TODOS:
-            return state;
+            return { ...state, isLoading: true };
 
         case todoActions.SAVE_TODOS_SUCCESS:
-            return state;
+            return { ...state, isLoading: false };
 
         default:
             return state;

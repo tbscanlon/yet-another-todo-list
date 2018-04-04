@@ -4,7 +4,7 @@ import { Todo } from "../models/todo";
 import * as todoActions from "./todo.actions";
 import * as todoState from "./todo.state";
 
-describe("Reducer: Todo", () => {
+fdescribe("Reducer: Todo", () => {
     const TODO: Todo = { id: "1", content: "Write Unit Tests", isComplete: false };
     const TODO_2: Todo = { id: "2", content: "Buy Milk", isComplete: false };
     const TODO_3: Todo = { id: "3", content: "Hide the bodies", isComplete: false };
@@ -66,7 +66,17 @@ describe("Reducer: Todo", () => {
         });
     });
 
-    describe("RESET_TODOS_SUCCESS", () => {
+    describe("DELETE_TODOS", () => {
+        beforeEach(() => {
+            result = reducer(initialState, new todoActions.Reset());
+        });
+
+        it("Sets the loading flag", () => {
+            expect(result.isLoading).toBeTruthy();
+        });
+    });
+
+    describe("DELETE_TODOS_SUCCESS", () => {
         beforeEach(() => {
             testState = reducer(initialState, new todoActions.Add(TODO));
             testState = reducer(testState, new todoActions.Add(TODO_2));
@@ -76,6 +86,50 @@ describe("Reducer: Todo", () => {
         it("Resets the state", () => {
             result = reducer(testState, new todoActions.ResetSuccess());
             expect(result).toEqual(initialState);
+        });
+    });
+
+    describe("LOAD_TODOS", () => {
+        beforeEach(() => {
+            result = reducer(initialState, new todoActions.Load());
+        });
+
+        it("Sets the loading flag", () => {
+            expect(result.isLoading).toBeTruthy();
+        });
+    });
+
+    describe("LOAD_TODOS_SUCCESS", () => {
+        beforeEach(() => {
+            result = reducer(initialState, new todoActions.LoadSuccess([
+                TODO, TODO_2, TODO_3
+            ]));
+        });
+
+        it("Adds all found todos to the store", () => {
+            expect(result.entities[1]).toEqual(TODO);
+            expect(result.entities[2]).toEqual(TODO_2);
+            expect(result.entities[3]).toEqual(TODO_3);
+        });
+    });
+
+    describe("SAVE_TODOS", () => {
+        beforeEach(() => {
+            result = reducer(initialState, new todoActions.Save());
+        });
+
+        it("Sets the loading flag", () => {
+            expect(result.isLoading).toBeTruthy();
+        });
+    });
+
+    describe("SAVE_TODOS_SUCCESS", () => {
+        beforeEach(() => {
+            result = reducer(initialState, new todoActions.SaveSuccess());
+        });
+
+        it("Sets the loading flag", () => {
+            expect(result.isLoading).toBeFalsy();
         });
     });
 });

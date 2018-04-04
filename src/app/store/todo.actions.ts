@@ -7,8 +7,8 @@ export enum todoActions {
     COMPLETE_TODO       = "[Todo] Complete",
     EDIT_TODO           = "[Todo] Edit",
     REMOVE_TODO         = "[Todo] Remove",
-    RESET_TODOS         = "[Todo] Reset",
-    RESET_TODOS_SUCCESS = "[Todo] Reset Success",
+    DELETE_TODOS         = "[Todo] Reset",
+    DELETE_TODOS_SUCCESS = "[Todo] Reset Success",
     LOAD_TODOS          = "[Todo] Load",
     LOAD_TODOS_SUCCESS  = "[Todo] Load Success",
     SAVE_TODOS          = "[Todo] Save",
@@ -34,11 +34,11 @@ export class Remove implements Action {
 }
 
 export class Reset implements Action {
-    readonly type = todoActions.RESET_TODOS;
+    readonly type = todoActions.DELETE_TODOS;
 }
 
 export class ResetSuccess implements Action {
-    readonly type = todoActions.RESET_TODOS_SUCCESS;
+    readonly type = todoActions.DELETE_TODOS_SUCCESS;
 }
 
 export class Load implements Action {
@@ -59,4 +59,13 @@ export class SaveSuccess implements Action {
     readonly type = todoActions.SAVE_TODOS_SUCCESS;
 }
 
-export type Actions = Add | Complete | Remove | Reset | ResetSuccess | Load | LoadSuccess | Save | SaveSuccess;
+export type Actions =
+Add |
+Complete |
+Remove |
+Reset |
+ResetSuccess |
+Load |
+LoadSuccess |
+Save |
+SaveSuccess;
