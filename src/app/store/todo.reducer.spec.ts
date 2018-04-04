@@ -4,7 +4,7 @@ import { Todo } from "../models/todo";
 import * as todoActions from "./todo.actions";
 import * as todoState from "./todo.state";
 
-fdescribe("Reducer: Todo", () => {
+describe("Reducer: Todo", () => {
     const TODO: Todo = { id: "1", content: "Write Unit Tests", isComplete: false };
     const TODO_2: Todo = { id: "2", content: "Buy Milk", isComplete: false };
     const TODO_3: Todo = { id: "3", content: "Hide the bodies", isComplete: false };
