@@ -25,11 +25,8 @@ export class TodoListComponent {
     this.todos$ = store.select(fromTodo.selectAllTodos);
   }
 
-  // // TODO: Move into effect
-  // public saveTodos(): void {
-  //   this.todos$.forEach((todos: Todo[]) => {
-  //     todos.forEach(todo => this.storage.save(todo));
-  //   });
-  // }
+  public handleResetTodos(): void {
+    this.store.dispatch(new todoActions.Reset());
+  }
 
 }
