@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
 import { DebugElement, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import "rxjs/add/observable/of";
+import { of } from "rxjs/observable/of";
 
 import { Todo } from "../models/todo";
 import { TodoListComponent } from "./todo-list.component";
@@ -26,7 +26,7 @@ describe("TodoListComponent", () => {
     mockLocalStorage = jasmine.createSpyObj("storage", ["load", "save"]);
 
     mockStore.select.and.returnValue(
-      Observable.of(TODO_LIST)
+      of(TODO_LIST)
     );
 
     TestBed.configureTestingModule({

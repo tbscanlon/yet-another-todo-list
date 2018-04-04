@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Observable";
 import { Actions, Effect } from "@ngrx/effects";
 import { provideMockActions } from "@ngrx/effects/testing";
 import { Action, Store } from "@ngrx/store";
+import { of } from "rxjs/observable/of";
 
 import { TodoEffects } from "./todo.effects";
 import { LocalstorageService } from "../services/localstorage.service";
@@ -108,7 +109,7 @@ describe("Effects: Todo", () => {
     describe("save$", () => {
         beforeEach((done: DoneFn) => {
             store.pipe.and.returnValue(
-                Observable.of(TODO_LIST)
+                of(TODO_LIST)
             );
 
             service.saveAllTodos.and.returnValue(undefined);
