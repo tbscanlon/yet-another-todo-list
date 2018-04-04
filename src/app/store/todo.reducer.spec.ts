@@ -66,7 +66,7 @@ describe("Reducer: Todo", () => {
         });
     });
 
-    describe("RESET_TODOS", () => {
+    describe("RESET_TODOS_SUCCESS", () => {
         beforeEach(() => {
             testState = reducer(initialState, new todoActions.Add(TODO));
             testState = reducer(testState, new todoActions.Add(TODO_2));
@@ -74,7 +74,7 @@ describe("Reducer: Todo", () => {
         });
 
         it("Resets the state", () => {
-            result = reducer(testState, new todoActions.Reset());
+            result = reducer(testState, new todoActions.ResetSuccess());
             expect(result).toEqual(initialState);
         });
     });

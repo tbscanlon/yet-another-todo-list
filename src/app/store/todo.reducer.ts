@@ -20,7 +20,22 @@ export function reducer(state: TodoState = initialState, action: Actions): TodoS
             return todoAdapter.removeOne(action.payload, state);
 
         case todoActions.RESET_TODOS:
+            return state;
+
+        case todoActions.RESET_TODOS_SUCCESS:
             return initialState;
+
+        case todoActions.LOAD_TODOS:
+            return state;
+
+        case todoActions.LOAD_TODOS_SUCCESS:
+            return todoAdapter.addAll(action.payload, state);
+
+        case todoActions.SAVE_TODOS:
+            return state;
+
+        case todoActions.SAVE_TODOS_SUCCESS:
+            return state;
 
         default:
             return state;

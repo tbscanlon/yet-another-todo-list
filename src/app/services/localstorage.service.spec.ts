@@ -52,21 +52,31 @@ describe("LocalstorageService", () => {
     });
   });
 
-  describe("#save", () => {
-    it("Saves a todo to local storage", () => {
+  describe("#saveAllTodos", () => {
+    it("Saves todo to local storage", () => {
       spyOn(storage, "setItem");
-      service.save(TODO);
+      service.saveAllTodos(TODO_LIST);
 
       expect(storage.setItem).toHaveBeenCalledWith(
         TODO.id,
         JSON.stringify(TODO)
+      );
+
+      expect(storage.setItem).toHaveBeenCalledWith(
+        TODO_2.id,
+        JSON.stringify(TODO_2)
+      );
+
+      expect(storage.setItem).toHaveBeenCalledWith(
+        TODO_3.id,
+        JSON.stringify(TODO_3)
       );
     });
   });
 
   describe("#getAllTodos", () => {
     beforeEach(() => {
-      TODO_LIST.forEach((todo: Todo) => service.save(todo));
+      service.saveAllTodos(TODO_LIST);
     });
 
     it("Fetches all saved todos from local storage", () => {

@@ -21,23 +21,15 @@ export class TodoListComponent {
     private store: Store<todoState.TodoState>,
     private storage: LocalstorageService
   ) {
+    store.dispatch(new todoActions.Load());
     this.todos$ = store.select(fromTodo.selectAllTodos);
   }
 
-  // TODO: Move into effect
-  public saveTodos(): void {
-    this.todos$.forEach((todos: Todo[]) => {
-      todos.forEach(todo => this.storage.save(todo));
-    });
-  }
-
-  // TODO: Move into effect
-  public loadTodos() {
-    this.storage.getAllTodos().forEach((todo: Todo) => {
-      this.store.dispatch(
-        new todoActions.Add(todo)
-      );
-    });
-  }
+  // // TODO: Move into effect
+  // public saveTodos(): void {
+  //   this.todos$.forEach((todos: Todo[]) => {
+  //     todos.forEach(todo => this.storage.save(todo));
+  //   });
+  // }
 
 }

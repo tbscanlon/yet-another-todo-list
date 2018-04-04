@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Todo } from "../models/todo";
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class LocalstorageService {
@@ -10,11 +11,15 @@ export class LocalstorageService {
     this.storage.clear();
   }
 
-  public save(todo: Todo): void {
-    this.storage.setItem(
-      todo.id,
-      this.convertToString(todo)
-    );
+  public saveAllTodos(todos: Todo[]): void {
+    this.clear();
+
+    todos.forEach((todo: Todo) => {
+      this.storage.setItem(
+        todo.id,
+        this.convertToString(todo)
+      );
+    });
   }
 
   public getAllTodos(): Todo[] {
