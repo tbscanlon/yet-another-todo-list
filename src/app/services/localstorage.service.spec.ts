@@ -2,16 +2,14 @@ import { TestBed, inject } from "@angular/core/testing";
 
 import { LocalstorageService } from "./localstorage.service";
 import { Todo } from "../models/todo";
-import { List } from "../models/list";
 
-import { TODO, TODO_2, TODO_3, TODO_LIST } from "../../spec/mocks";
+import { TODO, TODO_2, TODO_3, TODO_LIST, LIST_OBJECT as LIST } from "../../spec/mocks";
 
 describe("LocalstorageService", () => {
   let service: LocalstorageService;
   let mockStorage: jasmine.SpyObj<Storage>;
 
   const storage: Storage = localStorage;
-  const LIST: List = { todos: TODO_LIST };
 
   beforeEach(() => {
     mockStorage = jasmine.createSpyObj("storage", ["clear", "setItem"]);
