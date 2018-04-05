@@ -6,7 +6,7 @@
   </div>
 
   <div class="todo-buttons">
-    <button class="complete-todo" (click)="completeTodo(todo.id)">Complete</button>
     <button class="remove-todo" (click)="deleteTodo(todo.id)">Remove</button>
+    <input type="checkbox" class="complete-checkbox" name="complete-todo" (change)="completeTodo(todo.id)" [checked]="todo.isComplete">
   </div>
 </div>

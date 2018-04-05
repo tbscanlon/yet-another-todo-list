@@ -2,20 +2,18 @@
     position: relative;
     display: flex;
     align-items: center;
+    padding: 0 10px;
     justify-content: space-between;
+    margin: 10px 0 10px 0;
+    background-color: #ddd;
+    border: 4px solid #999;
 }
 
 .complete {
     opacity: 0.5;
 }
 
-.complete:after {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    height: 3px;
-    background: #c00;
-    content: "";
-    width: 100%;
-    display: block;
+input[type=checkbox] {
+    transform: scale(3);
+    margin: 10px;
 }

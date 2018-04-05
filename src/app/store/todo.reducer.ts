@@ -59,3 +59,13 @@ export const {
     selectAll: selectAllTodos,
     selectTotal
 } = todoAdapter.getSelectors(getTodoState);
+
+export const selectCompleteTodos = createSelector(
+    selectAllTodos,
+    (todos) => todos.filter(todo => todo.isComplete)
+);
+
+export const selectIncompleteTodos = createSelector(
+    selectAllTodos,
+    (todos) => todos.filter(todo => !todo.isComplete)
+);

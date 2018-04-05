@@ -18,7 +18,7 @@ describe("TodoListComponent", () => {
   let component: TodoListComponent;
   let fixture: ComponentFixture<TodoListComponent>;
   let element: Element;
-  let mockStore: jasmine.SpyObj<any>;
+  let mockStore: jasmine.SpyObj<Store<todoState.TodoState>>;
   let mockLocalStorage: jasmine.SpyObj<LocalstorageService>;
 
   beforeEach(async(() => {
@@ -56,12 +56,16 @@ describe("TodoListComponent", () => {
       expect(component).toBeTruthy();
     });
 
-    it("Fetchs the todo list from the store", async(() => {
-      expect(mockStore.select).toHaveBeenCalledWith(fromTodo.selectAllTodos);
+    it("Fetchs complete todos from the store", async(() => {
+      expect(mockStore.select).toHaveBeenCalledWith(fromTodo.selectCompleteTodos);
+    }));
+
+    it("Fetchs complete todos from the store", async(() => {
+      expect(mockStore.select).toHaveBeenCalledWith(fromTodo.selectIncompleteTodos);
     }));
 
     it("Streams the todos from the store to todos$", async(() => {
-      component.todos$.subscribe(result => {
+      component.incompleteTodos$.subscribe(result => {
         expect(result).toEqual(TODO_LIST);
       });
     }));

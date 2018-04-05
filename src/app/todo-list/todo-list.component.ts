@@ -19,14 +19,16 @@ import * as todoActions from "../store/todo.actions";
   styleUrls: ["./todo-list.component.css"]
 })
 export class TodoListComponent {
-  public todos$: Observable<Todo[]>;
+  public incompleteTodos$: Observable<Todo[]>;
+  public completeTodos$: Observable<Todo[]>;
 
   constructor(
     private store: Store<todoState.TodoState>,
     private storage: LocalstorageService
   ) {
     store.dispatch(new todoActions.Load());
-    this.todos$ = store.select(fromTodo.selectAllTodos);
+    this.incompleteTodos$ = store.select(fromTodo.selectIncompleteTodos);
+    this.completeTodos$ = store.select(fromTodo.selectCompleteTodos);
   }
 
   /**
