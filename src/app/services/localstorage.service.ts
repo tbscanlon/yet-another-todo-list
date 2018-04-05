@@ -1,10 +1,8 @@
 import { Injectable } from "@angular/core";
-import { Todo } from "../models/todo";
 import { Observable } from "rxjs/Observable";
 
-export interface List {
-  todos: Todo[];
-}
+import { Todo } from "../models/todo";
+import { List } from "../models/list";
 
 /**
  * Represents an interface for interacting with the browser's
