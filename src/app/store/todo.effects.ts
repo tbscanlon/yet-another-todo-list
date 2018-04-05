@@ -22,7 +22,8 @@ export class TodoEffects {
     ) { }
 
     @Effect()
-    load$: Observable<Action> = this.action$.pipe(
+    load$: Observable<Action> = this.action$
+    .pipe(
         ofType(todoActions.todoActions.LOAD_TODOS),
         map((action: todoActions.Load) => {
             return new todoActions.LoadSuccess(
@@ -50,7 +51,8 @@ export class TodoEffects {
     );
 
     @Effect()
-    save$: Observable<Action> = this.action$.pipe(
+    save$: Observable<Action> = this.action$
+    .pipe(
         ofType(todoActions.todoActions.SAVE_TODOS),
         map((action: todoActions.Save) => {
             this.store.pipe(
@@ -65,7 +67,8 @@ export class TodoEffects {
     );
 
     @Effect()
-    reset$: Observable<Action> = this.action$.pipe(
+    reset$: Observable<Action> = this.action$
+    .pipe(
         ofType(todoActions.todoActions.DELETE_TODOS),
         map(action => {
             this.storage.clear();

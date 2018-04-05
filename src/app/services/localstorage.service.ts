@@ -2,6 +2,10 @@ import { Injectable } from "@angular/core";
 import { Todo } from "../models/todo";
 import { Observable } from "rxjs/Observable";
 
+export interface List {
+  todos: Todo[];
+}
+
 /**
  * Represents an interface for interacting with the browser's
  * local storage.
@@ -11,6 +15,7 @@ import { Observable } from "rxjs/Observable";
 export class LocalstorageService {
 
   private storage: Storage = localStorage;
+  private key              = "todo-list";
 
   /**
    * Removes all saved data from the local storage.
@@ -24,14 +29,13 @@ export class LocalstorageService {
    * @param {Todo[]} todos An array of todos to be saved.
    */
   public saveAllTodos(todos: Todo[]): void {
+    const listToSave: List = { todos: todos };
     this.clear();
 
-    todos.forEach((todo: Todo) => {
-      this.storage.setItem(
-        todo.id,
-        this.convertToString(todo)
-      );
-    });
+    this.storage.setItem(
+      this.key,
+      this.convertToString(listToSave)
+    );
   }
 
   /**
@@ -39,45 +43,50 @@ export class LocalstorageService {
    * @returns {Todo[]} An array of all saved todos.
    */
   public getAllTodos(): Todo[] {
-    const todos: Todo[] = [];
-
-    if (this.storage.length !== 0) {
-      for (let index = 0; index < this.storage.length; index += 1) {
-        const key = this.storage.key(index);
-        todos.push(
-          this.loadTodo(key)
-        );
-      }
+    if (this.storage.length === 0) {
+      this.initialiseNewList(this.key);
     }
 
-    return todos;
+    return this.loadTodoList(this.key).todos;
   }
 
   /**
-   * Fetches a todo from local storage by its ID.
+   * Creates an empty todo list in local storage.
+   * @param {string} id An identifier for the todo list.
+   */
+  private initialiseNewList(id: string): void {
+    this.storage.setItem(
+      id,
+      JSON.stringify({ todos: [] }
+      )
+    );
+  }
+
+  /**
+   * Fetches a todo list from local storage by its ID.
    * @param {string} storageIndex The ID of the saved todo.
    */
-  private loadTodo(storageIndex: string): Todo {
-    return this.convertToTodo(
+  private loadTodoList(storageIndex: string): List {
+    return this.convertToTodoList(
       this.storage.getItem(storageIndex)
     );
   }
 
   /**
-   * Converts a todo to a string so that it can be saved in
+   * Converts a todo list to a string so that it can be saved in
    * local storage.
-   * @param {Todo} todo The todo to be saved.
+   * @param {List} list The todo list to be saved.
    */
-  private convertToString(todo: Todo): string {
-    return JSON.stringify(todo);
+  private convertToString(list: List): string {
+    return JSON.stringify(list);
   }
 
   /**
-   * Converts a previously saved todo to a Todo object
+   * Converts a previously saved todo list to a list object
    * so that it can be loaded by the application.
-   * @param {string} item The saved todo to be loaded.
+   * @param {string} item The saved todo list to be loaded.
    */
-  private convertToTodo(item: string): Todo {
+  private convertToTodoList(item: string): List {
     return JSON.parse(item);
   }
 

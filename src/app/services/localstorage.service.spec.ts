@@ -2,6 +2,8 @@ import { TestBed, inject } from "@angular/core/testing";
 
 import { LocalstorageService } from "./localstorage.service";
 import { Todo } from "../models/todo";
+import { List } from "../models/list";
+
 import { TODO, TODO_2, TODO_3, TODO_LIST } from "../../spec/mocks";
 
 describe("LocalstorageService", () => {
@@ -9,6 +11,7 @@ describe("LocalstorageService", () => {
   let mockStorage: jasmine.SpyObj<Storage>;
 
   const storage: Storage = localStorage;
+  const LIST: List = { todos: TODO_LIST };
 
   beforeEach(() => {
     mockStorage = jasmine.createSpyObj("storage", ["clear", "setItem"]);
@@ -43,29 +46,35 @@ describe("LocalstorageService", () => {
       service.saveAllTodos(TODO_LIST);
 
       expect(storage.setItem).toHaveBeenCalledWith(
-        TODO.id,
-        JSON.stringify(TODO)
-      );
-
-      expect(storage.setItem).toHaveBeenCalledWith(
-        TODO_2.id,
-        JSON.stringify(TODO_2)
-      );
-
-      expect(storage.setItem).toHaveBeenCalledWith(
-        TODO_3.id,
-        JSON.stringify(TODO_3)
+        "todo-list",
+        JSON.stringify(LIST)
       );
     });
   });
 
   describe("#getAllTodos", () => {
-    beforeEach(() => {
-      service.saveAllTodos(TODO_LIST);
+    describe("With previously saved todos", () => {
+      beforeEach(() => {
+        service.saveAllTodos(TODO_LIST);
+      });
+
+      it("Fetches all saved todos from local storage", () => {
+        expect(service.getAllTodos()).toEqual(TODO_LIST);
+      });
     });
 
-    it("Fetches all saved todos from local storage", () => {
-      expect(service.getAllTodos()).toEqual(TODO_LIST);
+    describe("Without any previously saved todos", () => {
+      it("Creates a new empty todo list in local storage", () => {
+        spyOn(storage, "setItem").and.callThrough();
+
+        service.clear();
+        service.getAllTodos();
+
+        expect(storage.setItem).toHaveBeenCalledWith(
+          "todo-list",
+          JSON.stringify({ todos: [] })
+        );
+      });
     });
   });
 });
