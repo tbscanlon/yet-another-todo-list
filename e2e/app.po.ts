@@ -7,8 +7,16 @@ export class AppPage {
     return browser.get("/");
   }
 
+  public clearStorage(): void {
+    browser.executeScript("window.localStorage.clear();");
+  }
+
   public getParagraphText(): promise.Promise<string> {
     return element(by.css("app-root h1")).getText();
+  }
+
+  public getNewTodoForm(): promise.Promise<string> {
+    return element(by.css("app-new-todo")).getText();
   }
 
   public getTodoList(): promise.Promise<string> {
@@ -17,12 +25,40 @@ export class AppPage {
 
   public addAndGetTodo(): promise.Promise<string> {
     this.addTodo();
-    return browser.findElement(by.tagName("app-todo")).getText();
+    return this.getTodoText();
   }
 
-  private addTodo() {
-    const todoInput = browser.findElement(by.css("todo-content"));
-    const addButton = browser.findElement(by.css("add-todo"));
+  public addAndCompleteTodo(): promise.Promise<string> {
+    this.addAndGetTodo();
+    return this.completeTodo();
+  }
+
+  public addThenRemoveTodo(): void {
+    this.addTodo();
+    this.removeTodo();
+  }
+
+  public removeTodo(): void {
+    element(by.css(".remove-todo")).click();
+  }
+
+  public resetTodoList(): void {
+    element(by.cssContainingText("button", "Reset")).click();
+  }
+
+  private completeTodo(): promise.Promise<string> {
+    element(by.css("input[type='checkbox']")).click();
+    return element(by.css("input[type='checkbox']")).getAttribute("checked");
+  }
+
+  private getTodoText(): promise.Promise<string> {
+    return element(by.css(".todo-content")).getText();
+  }
+
+  private addTodo(): void {
+    const todoInput = browser.findElement(by.css("input[name='content']"));
+    const addButton = browser.findElement(by.css("button[type='submit']"));
+
     todoInput.sendKeys(this.TODO_TEXT);
     addButton.click();
   }
