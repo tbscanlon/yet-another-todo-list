@@ -27,8 +27,9 @@ export class TodoListComponent {
     private storage: LocalstorageService
   ) {
     store.dispatch(new todoActions.Load());
+
     this.incompleteTodos$ = store.select(fromTodo.selectIncompleteTodos);
-    this.completeTodos$ = store.select(fromTodo.selectCompleteTodos);
+    this.completeTodos$   = store.select(fromTodo.selectCompleteTodos);
   }
 
   /**
