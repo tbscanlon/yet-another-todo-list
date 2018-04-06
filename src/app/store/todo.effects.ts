@@ -24,36 +24,34 @@ export class TodoEffects {
     @Effect()
     load$: Observable<Action> = this.action$
     .pipe(
-        ofType(todoActions.todoActions.LOAD_TODOS),
+        ofType(todoActions.types.LOAD_TODOS),
         map((action: todoActions.Load) => {
             return new todoActions.LoadSuccess(
                 this.storage.getAllTodos()
             );
         }),
-        catchError(err => of(err))
     );
 
     @Effect()
     edit$: Observable<Action> = this.action$
     .ofType(
-        todoActions.todoActions.ADD_TODO,
-        todoActions.todoActions.COMPLETE_TODO,
-        todoActions.todoActions.REMOVE_TODO
+        todoActions.types.ADD_TODO,
+        todoActions.types.EDIT_TODO,
+        todoActions.types.REMOVE_TODO
     )
     .pipe(
         switchMap((action: todoActions.Add |
-            todoActions.Complete |
+            todoActions.Edit |
             todoActions.Remove
         ) => {
             return of(new todoActions.Save());
         }),
-        catchError(err => of(err))
     );
 
     @Effect()
     save$: Observable<Action> = this.action$
     .pipe(
-        ofType(todoActions.todoActions.SAVE_TODOS),
+        ofType(todoActions.types.SAVE_TODOS),
         map((action: todoActions.Save) => {
             this.store.pipe(
                 select(fromTodo.selectAllTodos),
@@ -63,18 +61,16 @@ export class TodoEffects {
 
             return (new todoActions.SaveSuccess);
         }),
-        catchError(err => of(err))
     );
 
     @Effect()
     reset$: Observable<Action> = this.action$
     .pipe(
-        ofType(todoActions.todoActions.DELETE_TODOS),
+        ofType(todoActions.types.DELETE_TODOS),
         map(action => {
             this.storage.clear();
             return (new todoActions.ResetSuccess);
         }),
-        catchError(err => of(err))
     );
 
 }

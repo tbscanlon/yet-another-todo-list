@@ -1,48 +1,48 @@
 import { createSelector, createFeatureSelector } from "@ngrx/store";
 
 import { initialState, TodoState, todoAdapter } from "./todo.state";
-import { todoActions, Actions } from "./todo.actions";
+import { types, Actions } from "./todo.actions";
 
 import * as todoState from "./todo.state";
 
 export function reducer(state: TodoState = initialState, action: Actions): TodoState {
     switch (action.type) {
-        case todoActions.ADD_TODO:
+        case types.ADD_TODO:
             return todoAdapter.addOne(action.payload, state);
 
-        case todoActions.COMPLETE_TODO:
+        case types.EDIT_TODO:
             return todoAdapter.updateOne({
                 id: action.id,
                 changes: action.changes
             }, state);
 
-        case todoActions.REMOVE_TODO:
+        case types.REMOVE_TODO:
             return todoAdapter.removeOne(action.payload, {
                 ...state, isLoading: false
             });
 
-        case todoActions.DELETE_TODOS:
+        case types.DELETE_TODOS:
             return { ...state, isLoading: true };
 
-        case todoActions.DELETE_TODOS_SUCCESS:
+        case types.DELETE_TODOS_SUCCESS:
             return todoAdapter.removeAll({
                 ...state,
                 isLoading: false
             });
 
-        case todoActions.LOAD_TODOS:
+        case types.LOAD_TODOS:
             return { ...state, isLoading: true };
 
-        case todoActions.LOAD_TODOS_SUCCESS:
+        case types.LOAD_TODOS_SUCCESS:
             return todoAdapter.addAll(action.payload, {
                 ...state,
                 isLoading: false
             });
 
-        case todoActions.SAVE_TODOS:
+        case types.SAVE_TODOS:
             return { ...state, isLoading: true };
 
-        case todoActions.SAVE_TODOS_SUCCESS:
+        case types.SAVE_TODOS_SUCCESS:
             return { ...state, isLoading: false };
 
         default:

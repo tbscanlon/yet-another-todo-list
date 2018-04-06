@@ -24,9 +24,9 @@ export class TodoComponent {
    * Marks the todo as complete.
    * @param {string} id The id of the completed todo.
    */
-  public completeTodo(id: string): void {
+  public toggleTodoCompletion(id: string): void {
     this.store.dispatch(
-      new todoActions.Complete(id, { isComplete: true })
+      new todoActions.Edit(id, { isComplete: !this.todo.isComplete })
     );
   }
 

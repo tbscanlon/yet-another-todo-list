@@ -55,7 +55,7 @@ describe("Effects: Todo", () => {
         });
 
         it("Dispatches a LoadSuccess action", () => {
-            expect(result.type).toEqual(todoActions.todoActions.LOAD_TODOS_SUCCESS);
+            expect(result.type).toEqual(todoActions.types.LOAD_TODOS_SUCCESS);
         });
     });
 
@@ -71,13 +71,13 @@ describe("Effects: Todo", () => {
             });
 
             it("Dispatches a Save action", () => {
-                expect(result.type).toEqual(todoActions.todoActions.SAVE_TODOS);
+                expect(result.type).toEqual(todoActions.types.SAVE_TODOS);
             });
         });
 
         describe("Upon completing a todo", () => {
             beforeEach((done: DoneFn) => {
-                action$.next(new todoActions.Complete(TODO.id, TODO));
+                action$.next(new todoActions.Edit(TODO.id, TODO));
 
                 effects.edit$.subscribe(res => {
                     result = res;
@@ -86,7 +86,7 @@ describe("Effects: Todo", () => {
             });
 
             it("Dispatches a Save action", () => {
-                expect(result.type).toEqual(todoActions.todoActions.SAVE_TODOS);
+                expect(result.type).toEqual(todoActions.types.SAVE_TODOS);
             });
         });
 
@@ -101,7 +101,7 @@ describe("Effects: Todo", () => {
             });
 
             it("Dispatches a Save action", () => {
-                expect(result.type).toEqual(todoActions.todoActions.SAVE_TODOS);
+                expect(result.type).toEqual(todoActions.types.SAVE_TODOS);
             });
         });
     });
@@ -123,7 +123,7 @@ describe("Effects: Todo", () => {
         });
 
         it("Dispatches a SaveSuccess action", () => {
-            expect(result.type).toEqual(todoActions.todoActions.SAVE_TODOS_SUCCESS);
+            expect(result.type).toEqual(todoActions.types.SAVE_TODOS_SUCCESS);
         });
 
         it("Gets current todos from the store", () => {
@@ -152,7 +152,7 @@ describe("Effects: Todo", () => {
         });
 
         it("Dispatches a ResetSuccess action", () => {
-            expect(result.type).toEqual(todoActions.todoActions.DELETE_TODOS_SUCCESS);
+            expect(result.type).toEqual(todoActions.types.DELETE_TODOS_SUCCESS);
         });
     });
 });

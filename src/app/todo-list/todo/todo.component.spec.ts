@@ -54,22 +54,33 @@ describe("TodoComponent", () => {
     });
   });
 
-  describe("#completeTodo", () => {
-    beforeEach(() => {
-      component.completeTodo(TODO.id);
-      component.todo = COMPLETED_TODO;
+  describe("#toggleTodoCompletion", () => {
+    describe("Completing a todo", () => {
+      beforeEach(() => {
+        component.toggleTodoCompletion(TODO.id);
+        component.todo = COMPLETED_TODO;
+        fixture.detectChanges();
+      });
 
-      fixture.detectChanges();
+      it("Dispatches en EDIT_TODO action to mark the todo as completed", () => {
+        expect(mockStore.dispatch).toHaveBeenCalledWith(
+          new todoActions.Edit(TODO.id, { isComplete: true })
+        );
+      });
     });
 
-    it("Dispatches a COMPLETE_TODO action when called", () => {
-      expect(mockStore.dispatch).toHaveBeenCalledWith(
-        new todoActions.Complete(TODO.id, { isComplete: true })
-      );
-    });
+    describe("Un-completing a todo", () => {
+      beforeEach(() => {
+        component.todo = COMPLETED_TODO;
+        component.toggleTodoCompletion(COMPLETED_TODO.id);
+        fixture.detectChanges();
+      });
 
-    it("Marks the todo as done within the template", () => {
-      expect(el.querySelector(".complete")).toBeTruthy();
+      it("Dispatches an EDIT_TODO action to mark the todo as not completed", () => {
+        expect(mockStore.dispatch).toHaveBeenCalledWith(
+          new todoActions.Edit(COMPLETED_TODO.id, { isComplete: false })
+        );
+      });
     });
   });
 

@@ -7,8 +7,8 @@ export class AppPage {
     return browser.get("/");
   }
 
-  public clearStorage(): void {
-    browser.executeScript("window.localStorage.clear();");
+  public clearStorage(): promise.Promise<Object> {
+    return browser.executeScript("window.localStorage.clear();");
   }
 
   public getParagraphText(): promise.Promise<string> {

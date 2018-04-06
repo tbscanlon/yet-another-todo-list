@@ -28,21 +28,29 @@ describe("Reducer: Todo", () => {
         });
     });
 
-    describe("COMPLETE_TODO", () => {
+    describe("EDIT_TODO", () => {
         beforeEach(() => {
             testState = reducer(initialState, new todoActions.Add(TODO));
+            result = reducer(testState, new todoActions.Edit(
+                TODO.id,
+                { isComplete: true }
+            ));
         });
 
         it("Marks the selected todo as complete", () => {
-            result = reducer(testState, new todoActions.Complete(
-                TODO.id, { isComplete: true }
+            expect(result.entities[1].isComplete).toBeTruthy();
+        });
+
+        it("Marks a previously complete todo as incomplete", () => {
+            result = reducer(testState, new todoActions.Edit(
+                TODO.id,
+                { isComplete: false }
             ));
-            console.log(result.entities[1]);
-            expect(result.entities[1]["isComplete"]).toBeTruthy();
+            expect(result.entities[1].isComplete).toBeFalsy();
         });
 
         it("Does not modify existing state if no todo matches dispatched ID", () => {
-            reducer(testState, new todoActions.Complete(TODO_2.id, { isComplete: true }));
+            reducer(testState, new todoActions.Edit(TODO_2.id, { isComplete: true }));
             expect(testState).not.toContain(TODO_2);
         });
     });
