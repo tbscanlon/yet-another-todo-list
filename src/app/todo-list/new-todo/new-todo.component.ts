@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Store } from "@ngrx/store";
 
@@ -19,6 +19,7 @@ import { Todo } from "../../models/todo";
 export class NewTodoComponent {
 
   @ViewChild("f") newTodo: NgForm;
+  @ViewChild("todoContentText") todoContentText: ElementRef;
 
   constructor(private store: Store<todoState.TodoState>) { }
 
@@ -29,6 +30,8 @@ export class NewTodoComponent {
    * @param {string} [id] The id of the new todo to be created.
    */
   public onSubmit(form: NgForm, id?: string): void {
+    this.clearTodoInput();
+
     this.store.dispatch(
       new todoActions.Add(
         this.createTodo(form.value.content, id)
@@ -59,6 +62,13 @@ export class NewTodoComponent {
     return new Date()
       .valueOf()
       .toString();
+  }
+
+  /**
+   * Removes any typed text from the new todo input field.
+   */
+  private clearTodoInput(): void {
+    this.todoContentText.nativeElement.value = "";
   }
 
 }
